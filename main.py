@@ -11,7 +11,7 @@ def read_commands_from_file(filepath):
         print(f"Datei nicht gefunden: {filepath}")
         return []
 
-def execute_commands(commands):#, delay=0.1):
+def execute_commands(commands):#,delay=0.01):
     print("Starte Tastensimulation in 3 Sekunden...")
     time.sleep(3)
     for command in commands:
