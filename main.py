@@ -18,7 +18,7 @@ def execute_commands(commands):#,delay=0.01):
         try:
             print(f"Sende: {command}")
             keyboard.send(command)
-            time.sleep()#delay)  # Pause zwischen Eingaben
+            #time.sleep(delay)  # Pause zwischen Eingaben
         except Exception as e:
             print(f"Fehler bei '{command}': {e}")
 
