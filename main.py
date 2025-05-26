@@ -11,14 +11,14 @@ def read_commands_from_file(filepath):
         print(f"Datei nicht gefunden: {filepath}")
         return []
 
-def execute_commands(commands):#,delay=0.01):
+def execute_commands(commands,delay=0.1):
     print("Starte Tastensimulation in 3 Sekunden...")
     time.sleep(3)
     for command in commands:
         try:
             print(f"Sende: {command}")
             keyboard.send(command)
-            #time.sleep(delay)  # Pause zwischen Eingaben
+            time.sleep(delay)  # Pause zwischen Eingaben
         except Exception as e:
             print(f"Fehler bei '{command}': {e}")
 
