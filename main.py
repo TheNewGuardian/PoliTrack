@@ -42,26 +42,6 @@ def get_screen():
         img = cv2.resize(screenshot, (84, 84))
         img = img[:, :, :3]  # RGB
         return img
-    
-def read_speed():
-    with mss.mss() as sct:
-        monitor = sct.monitors[1]
-        screenshot = np.array(sct.grab(monitor))
-        img = cv2.cvtColor(screenshot, cv2.COLOR_BGR2GRAY)
-
-        # HUD-Speed-Bereich zuschneiden (abhängig von Auflösung)
-        # Beispiel: rechte untere Ecke (anpassen!)
-        speed_crop = img[1920:1080, 1920:1080]  # für Full HD (1920x1080)
-
-        # OCR durchführen
-        text = pytesseract.image_to_string(speed_crop, config='--psm 7')
-        
-        # Nur Zahlen extrahieren
-        try:
-            speed = int(''.join(filter(str.isdigit, text)))
-            return speed
-        except:
-            return 0
 
 # RL-Umgebung definieren
 class TrackmaniaEnv(gym.Env):
@@ -95,14 +75,8 @@ class TrackmaniaEnv(gym.Env):
 
         # Beobachtung
         obs = get_screen()
-
-        # Belohnung: Dummy-Wert (z. B. konstant oder zufällig)
-        # => Hier kannst du z. B. Geschwindigkeit via OCR oder Fortschritt später einbauen
-        def _compute_reward():
-            speed = read_speed()
-            return speed / 100.0  # skaliert auf z. B. [0.0 - 3.0]
         
-        reward = _compute_reward()
+        reward = 1
         
         # Spiel vorbei? (Dummy: nie)
         done = False
