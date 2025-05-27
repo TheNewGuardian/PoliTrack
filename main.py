@@ -19,7 +19,7 @@ KEY_BACKWARDS = "s"
 # Aktiviere Trackmania-Fenster
 def focus_trackmania():
     try:
-        win = next(w for w in gw.getWindowsWithTitle("Trackmania") if w.Visible)
+        win = next(w for w in gw.getWindowsWithTitle("Trackmania") if w.visible)
         win.activate()
         time.sleep(1)
         print("Trackmania aktiviert.")
@@ -66,6 +66,8 @@ class TrackmaniaEnv(gym.Env):
             press_key(KEY_RIGHT, 0.2)
         elif action == 3:
             press_key(KEY_ACCELERATE, 0.2)
+        elif action == 4:
+            press_key(KEY_BACKWARDS, 0.2)
         else:
             time.sleep(0.2)
 
