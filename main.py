@@ -7,7 +7,12 @@ from pynput.keyboard import Controller
 import pygetwindow as gw
 from stable_baselines3 import PPO
 import pytesseract
-import mss
+import pyautogui
+
+# === Pixelüberwachung ===
+PIXEL_POSITIONS = [(390, 160)]  # Beispiel: Bildschirmmitte
+TARGET_COLOR = [0, 0, 0]        # Schwarz
+TOLERANCE = 10                  # Farbtoleranz
 
 # Tastatursteuerung
 keyboard = Controller()
@@ -43,7 +48,25 @@ def get_screen():
         img = img[:, :, :3]  # RGB
         return img
 
-# RL-Umgebung definieren
+#Bildschirmfarbe an Pixel prüfen
+def is_black(pixel):
+    return all(abs(pixel[i] - TARGET_COLOR[i]) <= TOLERANCE for i in range(3))
+
+def get_pixel_color(x, y):
+    with mss.mss() as sct:
+        monitor = sct.monitors[1]
+        screenshot = np.array(sct.grab(monitor))
+        pixel = screenshot[y, x, :3]
+        return pixel
+
+def check_pixels_and_click():
+    for (x, y) in PIXEL_POSITIONS:
+        pixel = get_pixel_color(x, y)
+        if is_black(pixel):
+            pyautogui.click()
+            time.sleep(0.5)
+
+#RL-Umgebung definieren
 class TrackmaniaEnv(gym.Env):
     def __init__(self):
         super(TrackmaniaEnv, self).__init__()
