@@ -106,7 +106,6 @@ class TrackmaniaEnv(gym.Env):
         obs = get_screen()
         
         reward = 1
-        
         # Spiel vorbei? (Dummy: nie)
         done = False
 
