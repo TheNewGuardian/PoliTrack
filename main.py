@@ -8,6 +8,7 @@ import pygetwindow as gw
 from stable_baselines3 import PPO
 import pytesseract
 import pyautogui
+import keyboard
 
 # === Pixelüberwachung ===
 PIXEL_POSITIONS = [(390, 160)]  # Beispiel: Bildschirmmitte
@@ -66,6 +67,11 @@ def check_pixels_and_click():
             pyautogui.click()
             time.sleep(0.5)
 
+def esc_listener():
+    global stop_requested
+    keyboard.wait('esc')
+    stop_requested = True
+
 #RL-Umgebung definieren
 class TrackmaniaEnv(gym.Env):
     def __init__(self):
@@ -113,4 +119,12 @@ if __name__ == "__main__":
     model = PPO("CnnPolicy", env, verbose=1)
     model.learn(total_timesteps=10_000)  # Testlauf, später erhöhen
 
-    print("Training abgeschlossen")
+    timestep = 0
+    obs = env.reset()
+
+    while not stop_requested:
+        action, _ = model.predict(obs)
+        obs, reward, done, info = env.step(action)
+        timestep += 1
+        if done:
+            obs = env.reset()
