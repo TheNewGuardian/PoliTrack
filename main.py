@@ -69,8 +69,8 @@ def check_pixels_and_click():
 
 def esc_listener():
     global stop_requested
-    keyboard.wait('esc')
-    stop_requested = True
+    if keyboard.read_event()== "esc":
+        stop_requested = True
 
 #RL-Umgebung definieren
 class TrackmaniaEnv(gym.Env):
