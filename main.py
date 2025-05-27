@@ -11,19 +11,20 @@ from stable_baselines3 import PPO
 keyboard = Controller()
 
 # Steuerungstasten
-KEY_LEFT = 'left'
-KEY_RIGHT = 'right'
-KEY_ACCELERATE = 'up'
+KEY_LEFT = "a"
+KEY_RIGHT = "d"
+KEY_ACCELERATE = "w"
+KEY_BACKWARDS = "s"
 
 # Aktiviere Trackmania-Fenster
 def focus_trackmania():
     try:
-        win = next(w for w in gw.getWindowsWithTitle('Trackmania') if w.isVisible)
+        win = next(w for w in gw.getWindowsWithTitle("Trackmania") if w.Visible)
         win.activate()
         time.sleep(1)
-        print("✅ Trackmania aktiviert.")
+        print("Trackmania aktiviert.")
     except StopIteration:
-        print("⚠️ Trackmania-Fenster nicht gefunden.")
+        print("Trackmania-Fenster nicht gefunden.")
 
 # Tastenbefehle senden
 def press_key(key, duration=0.1):
