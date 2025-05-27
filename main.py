@@ -51,7 +51,7 @@ def read_speed():
 
         # HUD-Speed-Bereich zuschneiden (abhängig von Auflösung)
         # Beispiel: rechte untere Ecke (anpassen!)
-        speed_crop = img[850:900, 1920:1080]  # für Full HD (1920x1080)
+        speed_crop = img[1920:1080, 1920:1080]  # für Full HD (1920x1080)
 
         # OCR durchführen
         text = pytesseract.image_to_string(speed_crop, config='--psm 7')
