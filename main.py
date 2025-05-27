@@ -69,7 +69,7 @@ def check_pixels_and_click():
 
 def esc_listener():
     global stop_requested
-    if keyboard.read_event()== "esc":
+    if keyboard.read_event() == "esc":
         stop_requested = True
 
 #RL-Umgebung definieren
