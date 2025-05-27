@@ -77,8 +77,8 @@ class TrackmaniaEnv(gym.Env):
     def __init__(self):
         super(TrackmaniaEnv, self).__init__()
 
-        # Aktionen: [0: nichts, 1: links, 2: rechts, 3: beschleunigen]
-        self.action_space = gym.spaces.Discrete(4)
+        # Aktionen: [0: nichts, 1: links, 2: rechts, 3: beschleunigen, 4:bremsen]
+        self.action_space = gym.spaces.Discrete(5)
 
         # Beobachtung: 84x84 RGB-Bild
         self.observation_space = gym.spaces.Box(low=0, high=255, shape=(84, 84, 3), dtype=np.uint8)
@@ -93,12 +93,16 @@ class TrackmaniaEnv(gym.Env):
         # Eingabe senden
         if action == 1:
             press_key(KEY_LEFT, 0.2)
+            print("a")
         elif action == 2:
             press_key(KEY_RIGHT, 0.2)
+            print("d")
         elif action == 3:
             press_key(KEY_ACCELERATE, 0.2)
+            print("w")
         elif action == 4:
             press_key(KEY_BACKWARDS, 0.2)
+            print("s")
         else:
             time.sleep(0.2)
 
